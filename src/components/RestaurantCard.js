@@ -3,12 +3,15 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import Snackbar from '@mui/material/Snackbar';
 
 export default function RestaurantCard({ restaurant, fetchRestaurants }) {  
+  const [open, setOpen] = React.useState(false);
+
   const sendVote = () => {
     fetch(`http://localhost:8080/api/v1/vote/${restaurant.id}`, {
       method: 'POST',
@@ -17,6 +20,7 @@ export default function RestaurantCard({ restaurant, fetchRestaurants }) {
     .then(response => {
       console.log('VOTED: ' + response.status);
       if (response.ok) {
+        setOpen(true);
         fetchRestaurants();
       }
       else {
@@ -26,6 +30,7 @@ export default function RestaurantCard({ restaurant, fetchRestaurants }) {
   }
 
   return (
+    <>
     <Card variant="outlined" sx={{ minWidth: 150 }}>
       <CardContent>
         <Stack direction="row" spacing={1}>
@@ -46,13 +51,19 @@ export default function RestaurantCard({ restaurant, fetchRestaurants }) {
         </Stack>   
       </CardContent>
       <CardActions>
-        <Button 
-            variant="outlined"
+        <IconButton 
             size="small"
             onClick={() => sendVote()}>
-            Vote
-        </Button>    
+              <ThumbUpIcon />
+        </IconButton>    
       </CardActions>
     </Card>
+    <Snackbar
+      open={open}
+      autoHideDuration={2000}
+      onClose={() => setOpen(false)}
+      message="Thanks for voting!"
+    />
+    </>
   );
 }

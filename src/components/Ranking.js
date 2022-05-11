@@ -1,12 +1,11 @@
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 
 export default function Ranking({ topRestaurants }) {
   return(
     <>
-      <Card outlined sx={{width: 500, height: 110, padding: 1}}>
+      <Card variant="outlined" sx={{width: 500, height: 110, padding: 1}}>
       <Stack>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           TOP 3
