@@ -4,12 +4,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Snackbar from '@mui/material/Snackbar';
 
-export default function RestaurantCard({ restaurant, fetchRestaurants }) {  
+export default function RestaurantCard({ restaurant, fetchRestaurants, alreadyVoted }) {  
   const [open, setOpen] = React.useState(false);
 
   const sendVote = () => {
@@ -55,7 +54,7 @@ export default function RestaurantCard({ restaurant, fetchRestaurants }) {
             size="small"
             onClick={() => sendVote()}>
               <ThumbUpIcon />
-        </IconButton>    
+        </IconButton>
       </CardActions>
     </Card>
     <Snackbar

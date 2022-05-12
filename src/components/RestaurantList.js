@@ -10,22 +10,36 @@ import _ from 'lodash';
 
 export default function RestaurantList() {
   const [city, setCity] = useState('Helsinki');
-  const [top, setTop] = useState([]);
+  const [todaysVotes, setTodaysVotes] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [alreadyVoted, setAlreadyVoted] = useState('');
   const cityOptions = ["Helsinki", "Espoo", "Vantaa", "Kuopio", "Oulu", "Tampere", "Kempele", "Turku"];
 
   useEffect(() => {
     fetchRestaurants();
+    fetchResults();
   }, [city]);
 
   const fetchRestaurants = () => {
     fetch(`http://localhost:8080/api/v1/restaurants/${city}`)
     .then(res => res.json())
     .then(data => {
-      setTop(_.orderBy(data.restaurants, ['votes'], ['desc']));
       setRestaurants(data.restaurants);
+      setAlreadyVoted(data.alreadyVoted);
+      console.log(data);
+    })
+    .then(_ => fetchResults())
+    .catch(err => console.error(err))
+  }
+
+  const fetchResults = () => {
+    fetch("http://localhost:8080/api/v1/results")
+    .then(res => res.json())
+    .then(data => {
+      setTodaysVotes(_.orderBy(data.results, ['votes'], ['desc']));
     })
     .catch(err => console.error(err))
+      
   }
 
   return(
@@ -40,7 +54,7 @@ export default function RestaurantList() {
           sx={{ width: 300, margin: 5 }}
           renderInput={(params) => <TextField {...params} label="Choose a city" />}
         />  
-        <Ranking topRestaurants={top} />
+        <Ranking topRestaurants={todaysVotes} />
       </Stack>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -48,7 +62,11 @@ export default function RestaurantList() {
             restaurants.map(restaurant => 
               <>
                 <Grid item xs={3}>
-                  <RestaurantCard restaurant={restaurant} fetchRestaurants={fetchRestaurants} />
+                  <RestaurantCard 
+                    restaurant={restaurant} 
+                    fetchRestaurants={fetchRestaurants} 
+                    alreadyVoted={alreadyVoted}
+                  />
                 </Grid>
               </>
               )
