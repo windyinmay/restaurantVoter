@@ -52,6 +52,7 @@ export default function RestaurantCard({ restaurant, fetchRestaurants, alreadyVo
       <CardActions>
         <IconButton 
             size="small"
+            color="primary"
             onClick={() => sendVote()}>
               <ThumbUpIcon />
         </IconButton>

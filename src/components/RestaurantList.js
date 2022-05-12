@@ -13,7 +13,7 @@ export default function RestaurantList() {
   const [todaysVotes, setTodaysVotes] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [alreadyVoted, setAlreadyVoted] = useState('');
-  const cityOptions = ["Helsinki", "Espoo", "Vantaa", "Kuopio", "Oulu", "Tampere", "Kempele", "Turku"];
+  const cityOptions = ["Helsinki", "Espoo", "Vantaa", "Jyväskylä", "Kuopio", "Oulu", "Tampere", "Kempele", "Turku"];
 
   useEffect(() => {
     fetchRestaurants();

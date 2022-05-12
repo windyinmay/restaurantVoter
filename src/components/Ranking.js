@@ -17,7 +17,7 @@ export default function Ranking({ topRestaurants }) {
               {topRestaurants.length > 1 && topRestaurants[1].votes > 0 ? `2.) ${topRestaurants[1].name} (${topRestaurants[1].votes} votes)` : '2.) -'}
           </Typography>      
           <Typography sx={{ fontSize: 16 }}>
-              {topRestaurants.length > 3 && topRestaurants[2].votes > 0 ? `3.) ${topRestaurants[2].name} (${topRestaurants[2].votes} votes)` : '3.) -'}
+              {topRestaurants.length > 2 && topRestaurants[2].votes > 0 ? `3.) ${topRestaurants[2].name} (${topRestaurants[2].votes} votes)` : '3.) -'}
           </Typography>
         </Stack>
       </Card>      
