@@ -12,7 +12,7 @@ export default function RestaurantCard({ restaurant, fetchRestaurants, alreadyVo
   const [open, setOpen] = React.useState(false);
 
   const sendVote = () => {
-    fetch(`http://localhost:8080/api/v1/vote/${restaurant.id}`, {
+    fetch(`${process.env.REACT_APP_REST_API_URL}/api/v1/vote/${restaurant.id}`, {
       method: 'POST',
       credentials: 'include'
     })

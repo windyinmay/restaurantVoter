@@ -21,7 +21,7 @@ export default function RestaurantList() {
   }, [city]);
 
   const fetchRestaurants = () => {
-    fetch(`http://localhost:8080/api/v1/restaurants/${city}`)
+    fetch(`${process.env.REACT_APP_REST_API_URL}/api/v1/restaurants/${city}`)
     .then(res => res.json())
     .then(data => {
       setRestaurants(data.restaurants);
@@ -33,7 +33,7 @@ export default function RestaurantList() {
   }
 
   const fetchResults = () => {
-    fetch("http://localhost:8080/api/v1/results")
+    fetch(`${process.env.REACT_APP_REST_API_URL}/api/v1/results`)
     .then(res => res.json())
     .then(data => {
       setTodaysVotes(_.orderBy(data.results, ['votes'], ['desc']));
